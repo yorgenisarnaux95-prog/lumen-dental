@@ -25,10 +25,16 @@
   var burger = document.querySelector(".nav-burger");
   var panel = document.querySelector(".mobile-panel");
   if (burger && panel) {
+    var panelLinks = panel.querySelectorAll("a");
     burger.addEventListener("click", function () {
       var open = burger.classList.toggle("is-open");
       panel.classList.toggle("is-open", open);
       document.body.style.overflow = open ? "hidden" : "";
+      if (open) {
+        panelLinks.forEach(function (a, i) {
+          a.style.setProperty("--mnd", reduceMotion.matches ? "0s" : (i * 60) + "ms");
+        });
+      }
     });
     panel.querySelectorAll("a").forEach(function (a) {
       a.addEventListener("click", function () {
