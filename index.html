@@ -145,7 +145,7 @@
   }
   .process-card {
     flex: 0 0 min(78vw, 380px);
-    background: var(--surface);
+    background: var(--card-grad);
     border: 1px solid var(--line);
     border-radius: 22px;
     padding: 40px 32px;
@@ -166,7 +166,7 @@
     border-radius: 22px;
     overflow: hidden;
   }
-  .stat-cell { background: var(--bg); padding: 36px 24px; text-align: center; }
+  .stat-cell { background: var(--card-grad); padding: 36px 24px; text-align: center; }
   .stat-cell .stat-num { font-size: clamp(32px, 4vw, 46px); color: var(--accent); }
   .stat-cell .label { display: block; margin-top: 8px; font-size: 13px; color: var(--text-dim); }
   @media (max-width: 700px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
@@ -179,7 +179,7 @@
     aspect-ratio: 4/3;
     border-radius: 22px;
     border: 1px solid var(--line);
-    background: var(--surface);
+    background: var(--card-grad);
     position: relative;
     overflow: hidden;
     box-shadow: 0 20px 50px -24px rgba(27,36,31,0.28);
