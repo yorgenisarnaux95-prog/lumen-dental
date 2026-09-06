@@ -11,8 +11,8 @@
 :root {
   --bg: #f5f2ea;
   --bg-2: #faf8f2;
-  --surface: #eef7fd;
-  --surface-2: #dcebf7;
+  --surface: #faf8f1;
+  --surface-2: #e2edf6;
   --line: rgba(27, 36, 31, 0.10);
   --line-strong: rgba(27, 36, 31, 0.18);
   --text: #1b241f;
@@ -23,7 +23,7 @@
   --accent-2: #3d6ea8;
   --accent-2-soft: rgba(61, 110, 168, 0.12);
 
-  --card-grad: linear-gradient(155deg, var(--surface) 0%, var(--surface) 62%, var(--surface-2) 100%);
+  --card-grad: linear-gradient(155deg, var(--surface) 0%, var(--surface) 72%, var(--surface-2) 100%);
 
   --font-display: "Fraunces", "Newsreader", serif;
   --font-body: "Inter", "Segoe UI", sans-serif;
