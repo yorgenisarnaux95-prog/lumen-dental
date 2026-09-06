@@ -329,7 +329,9 @@ section { position: relative; }
   transform: translateY(112%);
   transition: transform 1s var(--ease-out);
 }
+.reveal.in.section-head h2 .mask-inner,
 .reveal.in .section-head h2 .mask-inner,
+.reveal-scale.in.section-head h2 .mask-inner,
 .reveal-scale.in .section-head h2 .mask-inner { transform: translateY(0); }
 
 /* ---------- subrayado animado bajo la palabra de énfasis ---------- */
