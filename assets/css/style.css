@@ -9,8 +9,9 @@
 
 :root {
   --bg: #f5f2ea;
-  --surface: #ffffff;
-  --surface-2: #ece7db;
+  --bg-2: #faf8f2;
+  --surface: #eef7fd;
+  --surface-2: #dcebf7;
   --line: rgba(27, 36, 31, 0.10);
   --line-strong: rgba(27, 36, 31, 0.18);
   --text: #1b241f;
@@ -39,7 +40,10 @@ html { overflow-x: hidden; }
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(184, 220, 245, 0.32), transparent 65%),
+    linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 55%, #efe9dd 100%);
+  background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-body);
   font-size: 16px;
