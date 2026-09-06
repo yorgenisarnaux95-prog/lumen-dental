@@ -238,7 +238,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-family: var(--font-display);
   font-weight: 600;
   font-optical-sizing: auto;
-  font-size: clamp(22px, 6.4vw, 32px);
+  font-size: clamp(18px, 5vw, 24px);
   color: var(--text);
   opacity: 0;
   transform: translateY(16px);
@@ -246,7 +246,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   transition-delay: var(--mnd, 0s);
 }
 .mobile-panel.is-open a { opacity: 1; transform: translateY(0); }
-.mobile-panel .btn { margin-top: 12px; align-self: flex-start; }
+.mobile-panel .btn { margin-top: 8px; align-self: flex-start; padding: 10px 20px; font-size: 13.5px; }
 
 @media (max-width: 780px) {
   .nav-links, .nav-cta { display: none; }
