@@ -3,8 +3,9 @@
    Marca ficticia (portafolio). Anclaje: Salud/Clínicas médicas,
    "Autoridad establecida" (banco de composiciones), remixado:
    fondo cálido en vez de sage puro (eje temperatura), azul
-   clínico profundizado (eje matiz), Newsreader en vez de
-   Spectral (eje corte tipográfico, mismo rol editorial-serif).
+   clínico profundizado (eje matiz), Fraunces + Inter en vez de
+   Spectral + Public Sans (eje corte tipográfico, mismo rol
+   editorial-serif + sans neutra, referencia 21st.dev/Awwwards).
    ============================================================ */
 
 :root {
@@ -22,10 +23,10 @@
   --accent-2: #3d6ea8;
   --accent-2-soft: rgba(61, 110, 168, 0.12);
 
-  --card-grad: linear-gradient(155deg, var(--surface) 0%, var(--surface-2) 100%);
+  --card-grad: linear-gradient(155deg, var(--surface) 0%, var(--surface) 62%, var(--surface-2) 100%);
 
-  --font-display: "Newsreader", "Spectral", serif;
-  --font-body: "Public Sans", "Segoe UI", sans-serif;
+  --font-display: "Fraunces", "Newsreader", serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -52,6 +53,7 @@ body {
   font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  font-optical-sizing: auto;
 }
 
 body.paused *,
