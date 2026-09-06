@@ -39,30 +39,35 @@
     });
   }
 
-  /* ---------- IntersectionObserver reveals con stagger ---------- */
+  /* ---------- IntersectionObserver reveals con stagger ----------
+     Reversible en ambas direcciones: entra al bajar, se desarma al
+     subir por encima. Nunca se hace unobserve. */
   var revealEls = document.querySelectorAll(".reveal, .reveal-stagger, .reveal-scale, .choreo");
   if ("IntersectionObserver" in window && revealEls.length) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
         var el = entry.target;
-        el.classList.add("in");
-        if (el.classList.contains("reveal-stagger")) {
-          var items = el.querySelectorAll(".r-item");
-          items.forEach(function (item, i) {
-            item.style.transitionDelay = reduceMotion.matches ? "0s" : (i * 90) + "ms";
-          });
-          setTimeout(function () {
-            items.forEach(function (item) { item.style.transitionDelay = ""; });
-          }, items.length * 90 + 900);
+        if (entry.isIntersecting) {
+          el.classList.add("in");
+          if (el.classList.contains("reveal-stagger")) {
+            var items = el.querySelectorAll(".r-item");
+            items.forEach(function (item, i) {
+              item.style.transitionDelay = reduceMotion.matches ? "0s" : (i * 90) + "ms";
+            });
+            clearTimeout(el._staggerClear);
+            el._staggerClear = setTimeout(function () {
+              items.forEach(function (item) { item.style.transitionDelay = ""; });
+            }, items.length * 90 + 900);
+          }
+          if (el.classList.contains("choreo")) {
+            var words = el.querySelectorAll(".word");
+            words.forEach(function (w, i) {
+              w.style.setProperty("--wd", reduceMotion.matches ? "0s" : (i * 45) + "ms");
+            });
+          }
+        } else {
+          el.classList.remove("in");
         }
-        if (el.classList.contains("choreo")) {
-          var words = el.querySelectorAll(".word");
-          words.forEach(function (w, i) {
-            w.style.setProperty("--wd", reduceMotion.matches ? "0s" : (i * 45) + "ms");
-          });
-        }
-        io.unobserve(el);
       });
     }, { threshold: 0.2, rootMargin: "0px 0px -8% 0px" });
     revealEls.forEach(function (el) { io.observe(el); });
@@ -85,6 +90,51 @@
     });
     el.dataset.split = "done";
   });
+
+  /* ---------- iluminación de texto de lectura larga ----------
+     cada palabra se enciende al cruzar la franja de lectura,
+     continuo y en las dos direcciones del scroll. ---------- */
+  document.querySelectorAll(".lit-text").forEach(function (el) {
+    if (el.dataset.litSplit === "done") return;
+    var text = el.textContent;
+    el.textContent = "";
+    var words = text.split(" ");
+    words.forEach(function (word, i) {
+      var span = document.createElement("span");
+      span.className = "lit-word";
+      span.textContent = word;
+      el.appendChild(span);
+      if (i < words.length - 1) el.appendChild(document.createTextNode(" "));
+    });
+    el.dataset.litSplit = "done";
+  });
+  var litWords = document.querySelectorAll(".lit-word");
+  if (litWords.length) {
+    var smoothstep = function (x, e0, e1) {
+      var t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0)));
+      return t * t * (3 - 2 * t);
+    };
+    function updateLit() {
+      if (reduceMotion.matches) return;
+      var vh = window.innerHeight;
+      var focusLine = vh * 0.62;
+      var band = vh * 0.16;
+      litWords.forEach(function (w) {
+        var rect = w.getBoundingClientRect();
+        var center = rect.top + rect.height / 2;
+        var p = smoothstep(focusLine - center, -band, band);
+        w.style.opacity = (0.32 + p * 0.68).toFixed(2);
+        w.classList.toggle("is-lit", p > 0.5);
+      });
+    }
+    var litRaf = null;
+    window.addEventListener("scroll", function () {
+      if (litRaf) return;
+      litRaf = requestAnimationFrame(function () { updateLit(); litRaf = null; });
+    }, { passive: true });
+    window.addEventListener("resize", updateLit);
+    updateLit();
+  }
 
   /* ---------- contadores animados ---------- */
   document.querySelectorAll("[data-count]").forEach(function (el) {
@@ -110,6 +160,30 @@
     }, { threshold: 0.6 });
     obs.observe(el);
   });
+
+  /* ---------- parallax de imágenes: capas a distinta velocidad,
+     activo en todo el recorrido del scroll, no solo al entrar ---------- */
+  var parallaxEls = document.querySelectorAll("[data-parallax]");
+  if (parallaxEls.length) {
+    function updateParallax() {
+      if (reduceMotion.matches) return;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      parallaxEls.forEach(function (el) {
+        var speed = parseFloat(el.getAttribute("data-parallax")) || 0.08;
+        var rect = el.getBoundingClientRect();
+        var center = rect.top + rect.height / 2;
+        var offset = (center - vh / 2) * speed;
+        el.style.setProperty("--py", (-offset).toFixed(1) + "px");
+      });
+    }
+    var pRaf = null;
+    window.addEventListener("scroll", function () {
+      if (pRaf) return;
+      pRaf = requestAnimationFrame(function () { updateParallax(); pRaf = null; });
+    }, { passive: true });
+    window.addEventListener("resize", updateParallax);
+    updateParallax();
+  }
 
 
   /* ---------- cursor personalizado (desktop) + ripple móvil ---------- */

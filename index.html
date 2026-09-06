@@ -7,7 +7,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%2310161a%22/><circle cx=%2250%22 cy=%2250%22 r=%2222%22 fill=%22none%22 stroke=%22%232f9e6e%22 stroke-width=%228%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 <style>
   /* ---- hero específico de Inicio ---- */
@@ -18,8 +18,8 @@
     align-items: center;
     overflow: hidden;
     background:
-      radial-gradient(ellipse 60% 50% at 78% 18%, rgba(167,139,250,0.14), transparent 60%),
-      radial-gradient(ellipse 70% 60% at 15% 85%, rgba(45,212,232,0.10), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 78% 18%, rgba(61,110,168,0.10), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 15% 85%, rgba(47,122,93,0.12), transparent 60%),
       var(--bg);
   }
   .hero-grid {
@@ -80,7 +80,7 @@
     border-radius: 26px;
     overflow: hidden;
     border: 1px solid var(--line-strong);
-    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6);
+    box-shadow: 0 30px 80px -30px rgba(27,36,31,0.35);
   }
   .hero-scan img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .hero-scan::after {
@@ -133,7 +133,8 @@
     top: 0;
     height: 100vh;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     overflow: hidden;
   }
   .process-track {
@@ -179,13 +180,18 @@
     border-radius: 22px;
     border: 1px solid var(--line);
     background: var(--surface);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 20px 50px -24px rgba(27,36,31,0.28);
   }
-  .zig-visual svg { width: 60%; height: 60%; }
+  .zig-visual img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
+  .zig-item:hover .zig-visual img { transform: scale(1.05); }
+  .zig-visual .zig-tag {
+    position: absolute; bottom: 16px; left: 18px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
+    color: #fff; background: rgba(27,36,31,0.55); backdrop-filter: blur(6px);
+    padding: 6px 12px; border-radius: 999px;
+  }
   .zig-copy .index { font-family: var(--font-mono); color: var(--text-faint); font-size: 13px; }
   .zig-copy h3 { font-family: var(--font-display); font-size: clamp(24px, 2.6vw, 32px); margin-top: 12px; }
   .zig-copy p { margin-top: 16px; color: var(--text-dim); line-height: 1.65; max-width: 46ch; }
@@ -282,7 +288,7 @@
         </div>
       </div>
 
-      <div class="hero-scan reveal-scale">
+      <div class="hero-scan reveal-scale photo-zoom" data-parallax="0.05">
         <img src="assets/img/hero-inicio.jpg" alt="Paciente y dentista de Lumen revisando juntas un escaneo 3D en pantalla" loading="eager">
         <div class="hero-readout mono">ESCANEO_3D · 0.02mm · EN_VIVO</div>
       </div>
@@ -296,7 +302,7 @@
       <div class="section-head reveal">
         <span class="eyebrow">El problema real</span>
         <h2>El miedo al dentista casi nunca es al dolor. Es a no saber qué te van a hacer.</h2>
-        <p>La mayoría de pacientes que evitan la clínica no tuvieron una mala experiencia con el dolor: la tuvieron con un diagnóstico que nunca vieron, un presupuesto que cambió a mitad de tratamiento, o una explicación que sonó a idioma técnico.</p>
+        <p class="lit-text">La mayoría de pacientes que evitan la clínica no tuvieron una mala experiencia con el dolor: la tuvieron con un diagnóstico que nunca vieron, un presupuesto que cambió a mitad de tratamiento, o una explicación que sonó a idioma técnico.</p>
       </div>
     </div>
   </section>
@@ -318,12 +324,9 @@
             <h3>Escaneas, y ves lo mismo que ve tu dentista</h3>
             <p>Nada de moldes de silicona ni radiografías planas. El escáner intraoral proyecta tu boca en 3D en la misma pantalla que estás mirando, en tiempo real.</p>
           </div>
-          <div class="zig-visual">
-            <svg viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="2">
-              <rect x="20" y="15" width="60" height="70" rx="6"/>
-              <path d="M32 40 L45 52 L68 30" stroke-linecap="round" stroke-linejoin="round"/>
-              <line x1="32" y1="65" x2="68" y2="65" stroke-dasharray="3 4"/>
-            </svg>
+          <div class="zig-visual photo-zoom" data-parallax="0.10">
+            <img src="assets/img/tech-scanner.jpg" alt="Escáner intraoral 3D en uso durante una consulta en Lumen" loading="lazy">
+            <span class="zig-tag mono">ESCANEO EN VIVO</span>
           </div>
         </div>
 
@@ -333,14 +336,9 @@
             <h3>El presupuesto se fija antes de tocar una fresa</h3>
             <p>El plan de tratamiento sale directamente del escaneo: cada fase, cada pieza, cada coste, por escrito, antes de empezar. Si algo cambia en el camino, se habla antes de hacerlo, no después de facturarlo.</p>
           </div>
-          <div class="zig-visual">
-            <svg viewBox="0 0 100 100" fill="none" stroke="var(--accent-2)" stroke-width="2">
-              <rect x="22" y="18" width="56" height="64" rx="5"/>
-              <line x1="32" y1="34" x2="68" y2="34"/>
-              <line x1="32" y1="46" x2="60" y2="46"/>
-              <line x1="32" y1="58" x2="64" y2="58"/>
-              <path d="M32 70 L42 70 L42 68" stroke-linecap="round"/>
-            </svg>
+          <div class="zig-visual photo-zoom" data-parallax="-0.08">
+            <img src="assets/img/zig-presupuesto.jpg" alt="Dentista y paciente revisando juntos el presupuesto por escrito en Lumen" loading="lazy">
+            <span class="zig-tag mono">PLAN POR ESCRITO</span>
           </div>
         </div>
 
@@ -350,11 +348,9 @@
             <h3>El seguimiento no depende de tu memoria</h3>
             <p>Cada control se compara contra el escaneo anterior en la misma pantalla, así que el progreso (o cualquier alerta temprana) es literal, no una promesa verbal.</p>
           </div>
-          <div class="zig-visual">
-            <svg viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="2">
-              <circle cx="50" cy="50" r="30"/>
-              <path d="M50 32 L50 50 L64 58" stroke-linecap="round"/>
-            </svg>
+          <div class="zig-visual photo-zoom" data-parallax="0.10">
+            <img src="assets/img/zig-comparativa.jpg" alt="Comparativa en pantalla entre dos escaneos dentales de distintas fechas" loading="lazy">
+            <span class="zig-tag mono">ANTES Y DESPUÉS</span>
           </div>
         </div>
       </div>
@@ -400,7 +396,7 @@
       <div class="section-head reveal">
         <span class="eyebrow">Pacientes reales, clínica de concepto</span>
         <h2>Lo que cambia cuando ves tu propio diagnóstico</h2>
-        <p>Lumen es una marca de portafolio: estos testimonios son ilustrativos, escritos para mostrar cómo hablaría un paciente real de esta experiencia, no reseñas verificadas.</p>
+        <p class="lit-text">Lumen es una marca de portafolio: estos testimonios son ilustrativos, escritos para mostrar cómo hablaría un paciente real de esta experiencia, no reseñas verificadas.</p>
       </div>
       <div class="test-grid">
         <div class="card test-card reveal"><div class="card-glow"></div><span class="quote-mark">"</span><p class="quote">Nunca había visto mi propia muela en una pantalla. Cuando me señalaron la grieta, dejé de dudar si necesitaba el tratamiento o no.</p><div class="who"><div class="avatar">M</div><div><strong>Marta R.</strong><span>Paciente de ortodoncia</span></div></div></div>
@@ -517,6 +513,16 @@
     }
     window.addEventListener("scroll", function () { requestAnimationFrame(update); }, { passive: true });
     window.addEventListener("resize", update);
+    /* recalcula cuando el ancho real de las tarjetas cambia: la
+       primera medición corre antes de que cargue Newsreader, y esa
+       tipografía es más ancha que la de sistema, así que sin esto
+       la última tarjeta del proceso siempre queda cortada */
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(update).observe(track);
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(update);
+    }
     update();
   })();
 </script>

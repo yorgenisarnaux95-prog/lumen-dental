@@ -7,7 +7,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%2310161a%22/><circle cx=%2250%22 cy=%2250%22 r=%2222%22 fill=%22none%22 stroke=%22%232f9e6e%22 stroke-width=%228%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 <style>
   .tech-hero-img {
@@ -33,7 +33,7 @@
   .compare-wrap { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16/9; }
   .compare-side { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 14px; }
   .compare-side.old { background: var(--surface); }
-  .compare-side.new { background: linear-gradient(135deg, var(--surface), rgba(45,212,232,0.08)); clip-path: inset(0 0 0 50%); }
+  .compare-side.new { background: linear-gradient(135deg, var(--surface), var(--accent-soft)); clip-path: inset(0 0 0 50%); }
   .compare-side svg { width: 70px; height: 70px; }
   .compare-side span.lbl { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; color: var(--text-faint); }
   .compare-handle {
@@ -99,7 +99,7 @@
       <span class="eyebrow reveal in">Tecnología</span>
       <h1 class="choreo">El escáner que reemplaza al molde de silicona</h1>
       <p class="reveal in">Un escaneo intraoral de 3 minutos genera un modelo 3D navegable de tu boca con precisión de 0.02mm. Ese modelo es la base de cualquier diagnóstico, presupuesto y tratamiento que sale de esta clínica.</p>
-      <div class="tech-hero-img reveal">
+      <div class="tech-hero-img reveal photo-zoom" data-parallax="0.06">
         <img src="assets/img/tech-scanner.jpg" alt="Escáner intraoral 3D de Lumen proyectando el modelo digital de una arcada dental" loading="eager">
         <span class="tag mono">ESCANER_INTRAORAL · MODELO_3D_EN_VIVO</span>
       </div>
@@ -124,7 +124,7 @@
       <div class="section-head reveal">
         <span class="eyebrow">Molde vs. escaneo</span>
         <h2>Arrastra para comparar</h2>
-        <p>La diferencia no es solo comodidad. Un modelo digital se puede rotar, medir y comparar contra el siguiente control; un molde de yeso se guarda en un cajón.</p>
+        <p class="lit-text">La diferencia no es solo comodidad. Un modelo digital se puede rotar, medir y comparar contra el siguiente control; un molde de yeso se guarda en un cajón.</p>
       </div>
       <div class="compare-wrap reveal" id="compareWrap">
         <div class="compare-side old">
