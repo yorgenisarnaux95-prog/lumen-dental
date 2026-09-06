@@ -111,32 +111,6 @@
     obs.observe(el);
   });
 
-  /* ---------- líneas SVG que se autotrazan con scroll ---------- */
-  var drawEls = document.querySelectorAll("[data-draw-path]");
-  if (drawEls.length) {
-    drawEls.forEach(function (path) {
-      var len = path.getTotalLength();
-      path.style.strokeDasharray = len;
-      path.style.strokeDashoffset = len;
-    });
-    function updateDraw() {
-      drawEls.forEach(function (path) {
-        var rect = path.ownerSVGElement.getBoundingClientRect();
-        var vh = window.innerHeight;
-        var p = (vh - rect.top) / (vh + rect.height);
-        p = Math.max(0, Math.min(1, p));
-        var len = path.getTotalLength();
-        path.style.strokeDashoffset = reduceMotion.matches ? 0 : len * (1 - p);
-      });
-    }
-    var drawRaf = null;
-    window.addEventListener("scroll", function () {
-      if (drawRaf) return;
-      drawRaf = requestAnimationFrame(function () { updateDraw(); drawRaf = null; });
-    }, { passive: true });
-    window.addEventListener("resize", updateDraw);
-    updateDraw();
-  }
 
   /* ---------- cursor personalizado (desktop) + ripple móvil ---------- */
   var mqFine = window.matchMedia("(hover: hover) and (pointer: fine)");

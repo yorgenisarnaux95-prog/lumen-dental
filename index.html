@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lumen · Clínica Dental de Precisión Digital</title>
 <meta name="description" content="Lumen es una clínica dental que sustituye la incertidumbre por evidencia visual: escaneo 3D, diagnóstico compartido en pantalla y planes de tratamiento sin sorpresas.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%23101418%22/><circle cx=%2250%22 cy=%2250%22 r=%2222%22 fill=%22none%22 stroke=%22%232dd4e8%22 stroke-width=%228%22/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%2310161a%22/><circle cx=%2250%22 cy=%2250%22 r=%2222%22 fill=%22none%22 stroke=%22%232f9e6e%22 stroke-width=%228%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -74,34 +74,34 @@
   .hero-trust .stat-num { font-size: 26px; }
   .hero-trust span.label { font-size: 12.5px; color: var(--text-faint); font-family: var(--font-mono); }
 
-  .hero-scan { position: relative; height: clamp(320px, 42vw, 560px); }
-  .hero-scan svg { width: 100%; height: 100%; overflow: visible; }
-  .scan-ring { transform-origin: center; animation: spin 22s linear infinite; }
-  .scan-ring.rev { animation-direction: reverse; animation-duration: 34s; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .scan-node { fill: var(--accent); filter: drop-shadow(0 0 6px var(--accent)); }
-  .scan-node.violet { fill: var(--accent-2); filter: drop-shadow(0 0 6px var(--accent-2)); }
-  .scan-sweep {
-    stroke: url(#sweepGrad);
-    stroke-width: 1.4;
-    animation: sweep 4.5s linear infinite;
+  .hero-scan {
+    position: relative;
+    height: clamp(360px, 46vw, 600px);
+    border-radius: 26px;
+    overflow: hidden;
+    border: 1px solid var(--line-strong);
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6);
   }
-  @keyframes sweep { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  .tooth-outline { stroke: var(--accent); stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-  .tooth-fill { fill: rgba(45,212,232,0.05); }
+  .hero-scan img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-scan::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(200deg, rgba(47,158,110,0.16), transparent 55%),
+                linear-gradient(0deg, rgba(8,10,12,0.55), transparent 40%);
+    pointer-events: none;
+  }
   .hero-readout {
     position: absolute;
-    bottom: 6%;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 18px;
+    left: 20px;
     font-family: var(--font-mono);
     font-size: 11px;
     color: var(--accent);
     letter-spacing: 0.08em;
-    text-align: center;
-    opacity: 0.85;
+    opacity: 0.95;
+    z-index: 2;
   }
-  body.paused .scan-ring, body.paused .scan-sweep { animation: none; }
 
   .scroll-cue {
     position: absolute;
@@ -282,45 +282,8 @@
         </div>
       </div>
 
-      <div class="hero-scan" aria-hidden="true">
-        <svg viewBox="0 0 400 400">
-          <defs>
-            <linearGradient id="sweepGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#2dd4e8" stop-opacity="0"/>
-              <stop offset="100%" stop-color="#2dd4e8" stop-opacity="0.9"/>
-            </linearGradient>
-          </defs>
-
-          <g class="scan-ring">
-            <circle cx="200" cy="200" r="170" fill="none" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="2 8"/>
-          </g>
-          <g class="scan-ring rev">
-            <circle cx="200" cy="200" r="140" fill="none" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="1 6"/>
-          </g>
-          <g class="scan-ring">
-            <line class="scan-sweep" x1="200" y1="200" x2="200" y2="30" style="transform-origin:200px 200px"/>
-          </g>
-
-          <!-- silueta de molar, autotrazada al hacer scroll -->
-          <path class="tooth-outline tooth-fill" data-draw-path
-            d="M150 120
-               C150 95 175 80 200 80
-               C225 80 250 95 250 120
-               C255 140 252 158 244 168
-               C240 195 244 230 236 258
-               C232 272 220 278 214 266
-               C210 256 208 240 200 240
-               C192 240 190 256 186 266
-               C180 278 168 272 164 258
-               C156 230 160 195 156 168
-               C148 158 145 140 150 120 Z"/>
-
-          <circle class="scan-node" cx="200" cy="96" r="4"/>
-          <circle class="scan-node violet" cx="244" cy="168" r="3.5"/>
-          <circle class="scan-node" cx="156" cy="168" r="3.5"/>
-          <circle class="scan-node violet" cx="214" cy="266" r="3.5"/>
-          <circle class="scan-node" cx="186" cy="266" r="3.5"/>
-        </svg>
+      <div class="hero-scan reveal-scale">
+        <img src="assets/img/hero-inicio.jpg" alt="Paciente y dentista de Lumen revisando juntas un escaneo 3D en pantalla" loading="eager">
         <div class="hero-readout mono">ESCANEO_3D · 0.02mm · EN_VIVO</div>
       </div>
     </div>

@@ -1,22 +1,23 @@
 /* ============================================================
    LUMEN — Clínica Dental. Sistema de diseño compartido.
    Marca ficticia (portafolio). Anclaje: Salud/Retador remixado
-   (acento cian "pantalla de escáner" + violeta innovación).
+   (verde salud + azul confianza, los colores propios del nicho
+   dental/médico, sobre fondo oscuro para el registro "moderno").
    ============================================================ */
 
 :root {
-  --bg: #101418;
-  --surface: #171d22;
-  --surface-2: #1e262c;
+  --bg: #10161a;
+  --surface: #171f23;
+  --surface-2: #1d272b;
   --line: rgba(241, 243, 244, 0.09);
   --line-strong: rgba(241, 243, 244, 0.16);
   --text: #f1f3f4;
   --text-dim: #9fadb6;
   --text-faint: #66757e;
-  --accent: #2dd4e8;
-  --accent-soft: rgba(45, 212, 232, 0.14);
-  --accent-2: #a78bfa;
-  --accent-2-soft: rgba(167, 139, 250, 0.14);
+  --accent: #2f9e6e;
+  --accent-soft: rgba(47, 158, 110, 0.16);
+  --accent-2: #3b82f6;
+  --accent-2-soft: rgba(59, 130, 246, 0.16);
 
   --font-display: "Syne", "Hanken Grotesk", sans-serif;
   --font-body: "Hanken Grotesk", "Segoe UI", sans-serif;
