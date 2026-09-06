@@ -1,0 +1,214 @@
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tratamientos · Lumen Clínica Dental</title>
+<meta name="description" content="Ortodoncia invisible, implantes, estética dental, endodoncia y odontología preventiva en Lumen: cada tratamiento parte del mismo escaneo 3D y un presupuesto cerrado por escrito.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%23101418%22/><circle cx=%2250%22 cy=%2250%22 r=%2222%22 fill=%22none%22 stroke=%22%232dd4e8%22 stroke-width=%228%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .treat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .treat-card { display: flex; flex-direction: column; height: 100%; }
+  .treat-card .icon-wrap {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: var(--accent-soft);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 22px;
+  }
+  .treat-card .icon-wrap svg { width: 26px; height: 26px; stroke: var(--accent); }
+  .treat-card h3 { font-family: var(--font-display); font-size: 21px; }
+  .treat-card p.desc { margin-top: 12px; color: var(--text-dim); font-size: 14.5px; line-height: 1.6; flex-grow: 1; }
+  .treat-card .meta { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  .treat-card .price { font-family: var(--font-mono); font-size: 13px; color: var(--accent); }
+  .treat-card .arrow { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line-strong); display: flex; align-items: center; justify-content: center; transition: background 0.3s, border-color 0.3s; }
+  .treat-card:hover .arrow { background: var(--accent); border-color: var(--accent); }
+  .treat-card:hover .arrow svg { stroke: #06090b; }
+  .treat-card .arrow svg { width: 14px; height: 14px; stroke: var(--text); transition: stroke 0.3s; }
+  @media (max-width: 980px) { .treat-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) { .treat-grid { grid-template-columns: 1fr; } }
+
+  .compare-table { width: 100%; border-collapse: collapse; }
+  .compare-table th, .compare-table td { text-align: left; padding: 18px 20px; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .compare-table th { font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); font-weight: 500; }
+  .compare-table td.check { color: var(--accent); font-size: 18px; }
+  .compare-table .row-highlight td { background: rgba(45,212,232,0.04); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 18px; }
+  .table-wrap table { min-width: 640px; }
+
+  .cta-band {
+    border-radius: 28px; background: linear-gradient(135deg, var(--surface), var(--surface-2));
+    border: 1px solid var(--line-strong); padding: clamp(50px, 8vw, 90px) clamp(30px, 6vw, 80px);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-band::before { content: ""; position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, var(--accent-soft), transparent 70%); top: -150px; right: -100px; }
+  .cta-band h2 { font-family: var(--font-display); font-size: clamp(30px, 4vw, 46px); position: relative; }
+  .cta-band p { margin: 18px auto 0; color: var(--text-dim); max-width: 46ch; position: relative; }
+  .cta-band .hero-actions { justify-content: center; margin-top: 34px; position: relative; display: flex; gap: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<nav class="nav" aria-label="Navegación principal">
+  <a href="index.html" class="nav-logo"><span class="dot"></span>Lumen</a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="tratamientos.html" class="active">Tratamientos</a>
+    <a href="tecnologia.html">Tecnología</a>
+    <a href="equipo.html">Equipo</a>
+    <a href="contacto.html">Contacto</a>
+  </div>
+  <a href="contacto.html" class="nav-cta btn btn-primary">Reservar cita</a>
+  <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+</nav>
+
+<div class="mobile-panel">
+  <a href="index.html">Inicio</a>
+  <a href="tratamientos.html">Tratamientos</a>
+  <a href="tecnologia.html">Tecnología</a>
+  <a href="equipo.html">Equipo</a>
+  <a href="contacto.html">Contacto</a>
+  <a href="contacto.html" class="btn btn-primary">Reservar cita</a>
+</div>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow reveal in">Tratamientos</span>
+      <h1 class="choreo">Cada tratamiento parte del mismo escaneo</h1>
+      <p class="reveal in">No vendemos procedimientos sueltos. Todo tratamiento en Lumen nace del mismo modelo 3D de tu boca, así que ortodoncia, implantes o estética hablan entre sí en vez de tratarte como seis pacientes distintos.</p>
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="treat-grid">
+
+        <div class="card treat-card reveal">
+          <div class="card-glow"></div>
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3c-4 0-6 2.5-6 6 0 3 1 5 2 8 .5 1.5 1.5 2 2 1s.5-3 2-3 1.5 2 2 3 1.5.5 2-1c1-3 2-5 2-8 0-3.5-2-6-6-6Z" stroke-linejoin="round"/></svg></div>
+          <h3>Ortodoncia invisible</h3>
+          <p class="desc">Alineadores transparentes planificados sobre tu escaneo 3D, con simulación del resultado final antes de empezar. Revisiones cada 4-6 semanas.</p>
+          <div class="meta"><span class="price">Desde 1.890€</span><a href="contacto.html" class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </div>
+
+        <div class="card treat-card reveal">
+          <div class="card-glow"></div>
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 4v6m0 0-3 10h6l-3-10Zm-5-2h10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Implantes dentales</h3>
+          <p class="desc">Cirugía guiada por el escaneo 3D con precisión submilimétrica. Planificación conjunta de la posición exacta antes de tocar una fresa.</p>
+          <div class="meta"><span class="price">Desde 990€ / pieza</span><a href="contacto.html" class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </div>
+
+        <div class="card treat-card reveal">
+          <div class="card-glow"></div>
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.4-6.4-1.4 1.4M7 17l-1.4 1.4M17 17l1.4 1.4M7 7 5.6 5.6" stroke-linecap="round"/></svg></div>
+          <h3>Estética dental</h3>
+          <p class="desc">Carillas y blanqueamiento diseñados sobre el modelo digital de tu sonrisa, con una previsualización que ves antes de aprobar el diseño.</p>
+          <div class="meta"><span class="price">Desde 320€ / pieza</span><a href="contacto.html" class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </div>
+
+        <div class="card treat-card reveal">
+          <div class="card-glow"></div>
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2C9 6 5 9 5 13a7 7 0 0 0 14 0c0-4-4-7-7-11Z" stroke-linejoin="round"/></svg></div>
+          <h3>Endodoncia</h3>
+          <p class="desc">Tratamiento de conducto guiado con localización digital del ápice, para menos sesiones y un postoperatorio más predecible.</p>
+          <div class="meta"><span class="price">Desde 210€ / conducto</span><a href="contacto.html" class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </div>
+
+        <div class="card treat-card reveal">
+          <div class="card-glow"></div>
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm4-1 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Odontología preventiva</h3>
+          <p class="desc">Revisión general, limpieza profesional y control comparado contra tu escaneo anterior para detectar cambios antes de que duelan.</p>
+          <div class="meta"><span class="price">Desde 45€</span><a href="contacto.html" class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </div>
+
+        <div class="card treat-card reveal">
+          <div class="card-glow"></div>
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M4 20c0-3 2.5-5 5-5s5 2 5 5M16 8h4m-2-2v4" stroke-linecap="round"/></svg></div>
+          <h3>Odontopediatría</h3>
+          <p class="desc">El escaneo 3D reemplaza los moldes de silicona también para los más pequeños: sin arcadas, sin miedo a la pasta en la boca.</p>
+          <div class="meta"><span class="price">Desde 40€</span><a href="contacto.html" class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Sin letra pequeña</span>
+        <h2>Lo que cambia frente a una clínica tradicional</h2>
+      </div>
+      <div class="table-wrap reveal">
+        <table class="compare-table">
+          <thead><tr><th>En el presupuesto</th><th>Clínica tradicional</th><th>Lumen</th></tr></thead>
+          <tbody>
+            <tr><td>Molde de la boca</td><td>Silicona, incómodo</td><td class="check">Escaneo 3D · 3 min</td></tr>
+            <tr class="row-highlight"><td>Presupuesto cerrado</td><td>Estimado, sujeto a cambios</td><td class="check">Fijo, por escrito, mismo día</td></tr>
+            <tr><td>Ver el diagnóstico</td><td>Se explica verbalmente</td><td class="check">En pantalla, contigo delante</td></tr>
+            <tr class="row-highlight"><td>Seguimiento</td><td>Depende de la memoria clínica</td><td class="check">Comparado contra el escaneo anterior</td></tr>
+            <tr><td>Cambios a mitad de tratamiento</td><td>Se facturan después</td><td class="check">Se acuerdan antes, en pantalla</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="cta-band reveal-scale">
+        <h2>¿No sabes qué tratamiento necesitas?</h2>
+        <p>El escaneo de diagnóstico es el mismo punto de partida para cualquier caso. Empezamos por ahí y decidimos juntos con el modelo 3D delante.</p>
+        <div class="hero-actions">
+          <a href="contacto.html" class="btn btn-primary">Reservar diagnóstico</a>
+          <a href="tecnologia.html" class="btn btn-ghost">Ver cómo escaneamos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><span class="dot"></span>Lumen</a>
+        <p>Clínica dental de diagnóstico visual. Escaneo 3D, presupuesto cerrado, seguimiento comparado.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <a href="index.html">Inicio</a>
+        <a href="tratamientos.html">Tratamientos</a>
+        <a href="tecnologia.html">Tecnología</a>
+        <a href="equipo.html">Equipo</a>
+      </div>
+      <div class="footer-col">
+        <h4>Clínica</h4>
+        <span>Calle Gran Vía 42, Madrid</span>
+        <span>Lun–Vie · 9:00–20:00</span>
+        <a href="tel:+34910000000">+34 910 00 00 00</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="contacto.html#privacidad">Política de privacidad</a>
+        <a href="contacto.html">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-fictional">LUMEN es una marca de concepto creada como portafolio de diseño web. Nombre, clínica, equipo y testimonios son ficticios.</span>
+      <span>© 2026 Lumen</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

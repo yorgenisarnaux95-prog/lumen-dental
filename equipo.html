@@ -1,0 +1,208 @@
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipo · Lumen Clínica Dental</title>
+<meta name="description" content="Conoce al equipo clínico de Lumen: cuatro especialistas que comparten el mismo protocolo de diagnóstico por escaneo 3D.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%23101418%22/><circle cx=%2250%22 cy=%2250%22 r=%2222%22 fill=%22none%22 stroke=%22%232dd4e8%22 stroke-width=%228%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .team-card { position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 3/4; }
+  .team-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease-out); }
+  .team-card:hover img { transform: scale(1.06); }
+  .team-card .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(10,13,15,0.94) 100%);
+  }
+  .team-card .info { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px; }
+  .team-card .info h3 { font-family: var(--font-display); font-size: 19px; }
+  .team-card .info span.role { display: block; margin-top: 4px; font-size: 12.5px; color: var(--accent); font-family: var(--font-mono); }
+  .team-card .info p.bio {
+    margin-top: 10px; font-size: 13px; color: var(--text-dim); line-height: 1.5;
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height 0.4s var(--ease-out), opacity 0.3s;
+  }
+  .team-card:hover .info p.bio, .team-card:focus-within .info p.bio { max-height: 120px; opacity: 1; }
+  @media (max-width: 980px) { .team-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) {
+    .team-grid { grid-template-columns: 1fr; }
+    .team-card .info p.bio { max-height: 120px; opacity: 1; }
+  }
+
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .value-card h3 { font-family: var(--font-display); font-size: 20px; }
+  .value-card .num { font-family: var(--font-mono); color: var(--text-faint); font-size: 13px; }
+  .value-card p { margin-top: 12px; color: var(--text-dim); font-size: 14.5px; line-height: 1.6; }
+  @media (max-width: 780px) { .values-grid { grid-template-columns: 1fr; } }
+
+  .cta-band { border-radius: 28px; background: linear-gradient(135deg, var(--surface), var(--surface-2)); border: 1px solid var(--line-strong); padding: clamp(50px, 8vw, 90px) clamp(30px, 6vw, 80px); text-align: center; position: relative; overflow: hidden; }
+  .cta-band::before { content: ""; position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, var(--accent-soft), transparent 70%); top: -150px; right: -100px; }
+  .cta-band h2 { font-family: var(--font-display); font-size: clamp(30px, 4vw, 46px); position: relative; }
+  .cta-band p { margin: 18px auto 0; color: var(--text-dim); max-width: 46ch; position: relative; }
+  .cta-band .hero-actions { justify-content: center; margin-top: 34px; position: relative; display: flex; gap: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<nav class="nav" aria-label="Navegación principal">
+  <a href="index.html" class="nav-logo"><span class="dot"></span>Lumen</a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="tratamientos.html">Tratamientos</a>
+    <a href="tecnologia.html">Tecnología</a>
+    <a href="equipo.html" class="active">Equipo</a>
+    <a href="contacto.html">Contacto</a>
+  </div>
+  <a href="contacto.html" class="nav-cta btn btn-primary">Reservar cita</a>
+  <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+</nav>
+
+<div class="mobile-panel">
+  <a href="index.html">Inicio</a>
+  <a href="tratamientos.html">Tratamientos</a>
+  <a href="tecnologia.html">Tecnología</a>
+  <a href="equipo.html">Equipo</a>
+  <a href="contacto.html">Contacto</a>
+  <a href="contacto.html" class="btn btn-primary">Reservar cita</a>
+</div>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow reveal in">Equipo</span>
+      <h1 class="choreo">Cuatro especialistas, un mismo protocolo</h1>
+      <p class="reveal in">No dependemos de que "tu dentista de siempre" recuerde tu caso de memoria. Todo el equipo lee el mismo escaneo 3D y sigue el mismo criterio de diagnóstico, así que cualquiera que te atienda parte de la misma información.</p>
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="team-grid reveal-stagger">
+
+        <div class="team-card r-item" tabindex="0">
+          <img src="https://s.3daistudio.com/media/thumbnails/Professional_editorial_portrait_of_a_wom_GPT_Image_2_ec21772847fd.jpeg" alt="Dra. Elena Vidal, directora clínica de Lumen" loading="lazy">
+          <div class="overlay"></div>
+          <div class="info">
+            <h3>Dra. Elena Vidal</h3>
+            <span class="role">DIRECTORA CLÍNICA · ORTODONCIA</span>
+            <p class="bio">14 años de práctica. Diseñó el protocolo de diagnóstico compartido que usa todo el equipo.</p>
+          </div>
+        </div>
+
+        <div class="team-card r-item" tabindex="0">
+          <img src="https://s.3daistudio.com/media/thumbnails/Professional_editorial_portrait_of_a_man_GPT_Image_2_3443cb95b6ed.jpeg" alt="Dr. Rubén Castro, cirugía e implantología en Lumen" loading="lazy">
+          <div class="overlay"></div>
+          <div class="info">
+            <h3>Dr. Rubén Castro</h3>
+            <span class="role">CIRUGÍA E IMPLANTOLOGÍA</span>
+            <p class="bio">Especializado en cirugía guiada por escaneo 3D. Formación en implantología digital en Barcelona.</p>
+          </div>
+        </div>
+
+        <div class="team-card r-item" tabindex="0">
+          <img src="https://s.3daistudio.com/media/thumbnails/Professional_editorial_portrait_of_a_wom_GPT_Image_2_6be1f93047af.jpeg" alt="Dra. Noa Ferrer, estética dental en Lumen" loading="lazy">
+          <div class="overlay"></div>
+          <div class="info">
+            <h3>Dra. Noa Ferrer</h3>
+            <span class="role">ESTÉTICA Y ODONTOPEDIATRÍA</span>
+            <p class="bio">Diseña sonrisas sobre el modelo digital antes de tocar una pieza. Atiende también a los pacientes más pequeños.</p>
+          </div>
+        </div>
+
+        <div class="team-card r-item" tabindex="0">
+          <img src="https://s.3daistudio.com/media/thumbnails/Professional_editorial_portrait_of_a_man_GPT_Image_2_fef75e41741f.jpeg" alt="Dr. David Salas, endodoncia en Lumen" loading="lazy">
+          <div class="overlay"></div>
+          <div class="info">
+            <h3>Dr. David Salas</h3>
+            <span class="role">ENDODONCIA · SUPERVISIÓN CLÍNICA</span>
+            <p class="bio">Más de 20 años en tratamiento de conducto. Revisa los casos complejos con todo el equipo cada semana.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Cómo trabajamos</span>
+        <h2>Tres reglas que sigue todo el equipo, sin excepción</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card reveal">
+          <span class="num mono">01</span>
+          <h3>Nada se explica solo de palabra</h3>
+          <p>Si un diagnóstico no se puede señalar en la pantalla del escaneo, no se considera explicado. Es la regla que más veces repetimos en las reuniones clínicas.</p>
+        </div>
+        <div class="value-card reveal">
+          <span class="num mono">02</span>
+          <h3>El presupuesto se firma antes, no se ajusta después</h3>
+          <p>Cualquier cambio de plan se conversa con el paciente delante de su propio escaneo, nunca se descubre en la factura.</p>
+        </div>
+        <div class="value-card reveal">
+          <span class="num mono">03</span>
+          <h3>Los casos difíciles se ven en equipo</h3>
+          <p>Cada caso complejo se revisa entre varios especialistas antes de proponer un plan, no depende del criterio de una sola persona.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="cta-band reveal-scale">
+        <h2>¿Con quién te gustaría empezar?</h2>
+        <p>La primera cita siempre incluye el escaneo de diagnóstico, sin importar qué especialista te atienda primero.</p>
+        <div class="hero-actions">
+          <a href="contacto.html" class="btn btn-primary">Reservar cita</a>
+          <a href="tratamientos.html" class="btn btn-ghost">Ver tratamientos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><span class="dot"></span>Lumen</a>
+        <p>Clínica dental de diagnóstico visual. Escaneo 3D, presupuesto cerrado, seguimiento comparado.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <a href="index.html">Inicio</a>
+        <a href="tratamientos.html">Tratamientos</a>
+        <a href="tecnologia.html">Tecnología</a>
+        <a href="equipo.html">Equipo</a>
+      </div>
+      <div class="footer-col">
+        <h4>Clínica</h4>
+        <span>Calle Gran Vía 42, Madrid</span>
+        <span>Lun–Vie · 9:00–20:00</span>
+        <a href="tel:+34910000000">+34 910 00 00 00</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="contacto.html#privacidad">Política de privacidad</a>
+        <a href="contacto.html">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-fictional">LUMEN es una marca de concepto creada como portafolio de diseño web. Nombre, clínica, equipo y testimonios son ficticios.</span>
+      <span>© 2026 Lumen</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

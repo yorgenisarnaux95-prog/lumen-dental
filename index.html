@@ -1,0 +1,561 @@
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumen · Clínica Dental de Precisión Digital</title>
+<meta name="description" content="Lumen es una clínica dental que sustituye la incertidumbre por evidencia visual: escaneo 3D, diagnóstico compartido en pantalla y planes de tratamiento sin sorpresas.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%23101418%22/><circle cx=%2250%22 cy=%2250%22 r=%2222%22 fill=%22none%22 stroke=%22%232dd4e8%22 stroke-width=%228%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  /* ---- hero específico de Inicio ---- */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 60% 50% at 78% 18%, rgba(167,139,250,0.14), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 15% 85%, rgba(45,212,232,0.10), transparent 60%),
+      var(--bg);
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 75%);
+    opacity: 0.6;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 40px;
+    padding-top: 90px;
+  }
+  .hero-copy .eyebrow { margin-bottom: 22px; }
+  .hero-copy h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(34px, 5.6vw, 63px);
+    line-height: 1.06;
+    letter-spacing: -0.015em;
+  }
+  .hero-copy h1 .accent { color: var(--accent); }
+  .hero-copy p.lede {
+    margin-top: 26px;
+    max-width: 46ch;
+    font-size: clamp(16px, 1.6vw, 19px);
+    color: var(--text-dim);
+    line-height: 1.65;
+  }
+  .hero-actions {
+    margin-top: 40px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .hero-trust {
+    margin-top: 52px;
+    display: flex;
+    gap: 34px;
+    flex-wrap: wrap;
+  }
+  .hero-trust div { display: flex; flex-direction: column; gap: 2px; }
+  .hero-trust .stat-num { font-size: 26px; }
+  .hero-trust span.label { font-size: 12.5px; color: var(--text-faint); font-family: var(--font-mono); }
+
+  .hero-scan { position: relative; height: clamp(320px, 42vw, 560px); }
+  .hero-scan svg { width: 100%; height: 100%; overflow: visible; }
+  .scan-ring { transform-origin: center; animation: spin 22s linear infinite; }
+  .scan-ring.rev { animation-direction: reverse; animation-duration: 34s; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .scan-node { fill: var(--accent); filter: drop-shadow(0 0 6px var(--accent)); }
+  .scan-node.violet { fill: var(--accent-2); filter: drop-shadow(0 0 6px var(--accent-2)); }
+  .scan-sweep {
+    stroke: url(#sweepGrad);
+    stroke-width: 1.4;
+    animation: sweep 4.5s linear infinite;
+  }
+  @keyframes sweep { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .tooth-outline { stroke: var(--accent); stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .tooth-fill { fill: rgba(45,212,232,0.05); }
+  .hero-readout {
+    position: absolute;
+    bottom: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-align: center;
+    opacity: 0.85;
+  }
+  body.paused .scan-ring, body.paused .scan-sweep { animation: none; }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.12em;
+    z-index: 2;
+  }
+  .scroll-cue .line { width: 1px; height: 30px; background: linear-gradient(var(--accent), transparent); animation: scrollcue 1.8s ease-in-out infinite; }
+  @keyframes scrollcue { 0%,100% { opacity: 0.2; } 50% { opacity: 1; } }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; padding-top: 60px; }
+    .hero-scan { order: -1; height: 280px; }
+    .hero-trust { gap: 24px; }
+  }
+
+  /* ---- proceso: scroll lateral ---- */
+  .process-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .process-track {
+    display: flex;
+    gap: 28px;
+    will-change: transform;
+    padding: 0 var(--pad);
+  }
+  .process-card {
+    flex: 0 0 min(78vw, 380px);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 40px 32px;
+  }
+  .process-card .num { font-family: var(--font-mono); color: var(--accent); font-size: 13px; }
+  .process-card h3 { font-family: var(--font-display); font-size: 24px; margin-top: 18px; }
+  .process-card p { margin-top: 12px; color: var(--text-dim); font-size: 15px; line-height: 1.6; }
+  .process-wrap { height: 320vh; position: relative; }
+  .process-exit { position: absolute; bottom: 0; left: 0; right: 0; height: 100px; }
+
+  /* ---- stats ---- */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    overflow: hidden;
+  }
+  .stat-cell { background: var(--bg); padding: 36px 24px; text-align: center; }
+  .stat-cell .stat-num { font-size: clamp(32px, 4vw, 46px); color: var(--accent); }
+  .stat-cell .label { display: block; margin-top: 8px; font-size: 13px; color: var(--text-dim); }
+  @media (max-width: 700px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ---- beneficios (zigzag) ---- */
+  .zig { display: flex; flex-direction: column; gap: 100px; }
+  .zig-item { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .zig-item:nth-child(even) .zig-visual { order: 2; }
+  .zig-visual {
+    aspect-ratio: 4/3;
+    border-radius: 22px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .zig-visual svg { width: 60%; height: 60%; }
+  .zig-copy .index { font-family: var(--font-mono); color: var(--text-faint); font-size: 13px; }
+  .zig-copy h3 { font-family: var(--font-display); font-size: clamp(24px, 2.6vw, 32px); margin-top: 12px; }
+  .zig-copy p { margin-top: 16px; color: var(--text-dim); line-height: 1.65; max-width: 46ch; }
+  @media (max-width: 820px) {
+    .zig-item, .zig-item:nth-child(even) .zig-visual { grid-template-columns: 1fr; order: 0; }
+  }
+
+  /* ---- testimonios ---- */
+  .test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .test-card { position: relative; }
+  .test-card:nth-child(2) { transform: translateY(28px); }
+  .test-card .quote-mark { font-family: var(--font-display); font-size: 40px; color: var(--accent-2); line-height: 1; }
+  .test-card p.quote { margin-top: 14px; color: var(--text); font-size: 15.5px; line-height: 1.6; }
+  .test-card .who { margin-top: 22px; display: flex; align-items: center; gap: 12px; }
+  .test-card .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--surface-2); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 14px; color: var(--accent); }
+  .test-card .who strong { display: block; font-size: 14px; }
+  .test-card .who span { font-size: 12.5px; color: var(--text-faint); }
+  @media (max-width: 900px) { .test-grid { grid-template-columns: 1fr; } .test-card:nth-child(2) { transform: none; } }
+
+  /* ---- FAQ ---- */
+  .faq-item { border-bottom: 1px solid var(--line); }
+  .faq-q { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 24px 0; text-align: left; font-family: var(--font-display); font-size: 18px; }
+  .faq-q .plus { font-size: 22px; color: var(--accent); transition: transform 0.35s var(--ease-in-out); flex-shrink: 0; margin-left: 20px; }
+  .faq-item.open .plus { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease-in-out); }
+  .faq-a p { padding: 0 0 24px; color: var(--text-dim); max-width: 60ch; line-height: 1.6; }
+
+  /* ---- CTA final ---- */
+  .cta-band {
+    border-radius: 28px;
+    background: linear-gradient(135deg, var(--surface), var(--surface-2));
+    border: 1px solid var(--line-strong);
+    padding: clamp(50px, 8vw, 90px) clamp(30px, 6vw, 80px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-band::before {
+    content: "";
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, var(--accent-soft), transparent 70%);
+    top: -150px; right: -100px;
+  }
+  .cta-band h2 { font-family: var(--font-display); font-size: clamp(30px, 4vw, 46px); position: relative; }
+  .cta-band p { margin: 18px auto 0; color: var(--text-dim); max-width: 46ch; position: relative; }
+  .cta-band .hero-actions { justify-content: center; margin-top: 34px; position: relative; }
+  .cta-band .guarantee { margin-top: 20px; font-size: 13px; color: var(--text-faint); position: relative; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<nav class="nav" aria-label="Navegación principal">
+  <a href="index.html" class="nav-logo"><span class="dot"></span>Lumen</a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Inicio</a>
+    <a href="tratamientos.html">Tratamientos</a>
+    <a href="tecnologia.html">Tecnología</a>
+    <a href="equipo.html">Equipo</a>
+    <a href="contacto.html">Contacto</a>
+  </div>
+  <a href="contacto.html" class="nav-cta btn btn-primary">Reservar cita</a>
+  <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+</nav>
+
+<div class="mobile-panel">
+  <a href="index.html">Inicio</a>
+  <a href="tratamientos.html">Tratamientos</a>
+  <a href="tecnologia.html">Tecnología</a>
+  <a href="equipo.html">Equipo</a>
+  <a href="contacto.html">Contacto</a>
+  <a href="contacto.html" class="btn btn-primary">Reservar cita</a>
+</div>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">Odontología guiada por escaneo 3D</span>
+        <h1 class="choreo">Verás tu boca <span class="accent">antes</span> de que decidamos nada</h1>
+        <p class="lede">En Lumen sustituimos el "confía en mí" por una pantalla compartida. Escaneo digital, diagnóstico visual y un plan de tratamiento que entiendes entero antes de firmar nada.</p>
+        <div class="hero-actions">
+          <a href="contacto.html" class="btn btn-primary">Reservar diagnóstico<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="tecnologia.html" class="btn btn-ghost">Ver la tecnología</a>
+        </div>
+        <div class="hero-trust reveal-stagger">
+          <div class="r-item"><span class="stat-num" data-count="14200">0</span><span class="label">ESCANEOS REALIZADOS</span></div>
+          <div class="r-item"><span class="stat-num" data-count="99.4">0</span><span class="label">% PRECISIÓN DE ESCÁNER</span></div>
+          <div class="r-item"><span class="stat-num" data-count="8">0</span><span class="label">AÑOS EN QUIRÓFANO DIGITAL</span></div>
+        </div>
+      </div>
+
+      <div class="hero-scan" aria-hidden="true">
+        <svg viewBox="0 0 400 400">
+          <defs>
+            <linearGradient id="sweepGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#2dd4e8" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#2dd4e8" stop-opacity="0.9"/>
+            </linearGradient>
+          </defs>
+
+          <g class="scan-ring">
+            <circle cx="200" cy="200" r="170" fill="none" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="2 8"/>
+          </g>
+          <g class="scan-ring rev">
+            <circle cx="200" cy="200" r="140" fill="none" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="1 6"/>
+          </g>
+          <g class="scan-ring">
+            <line class="scan-sweep" x1="200" y1="200" x2="200" y2="30" style="transform-origin:200px 200px"/>
+          </g>
+
+          <!-- silueta de molar, autotrazada al hacer scroll -->
+          <path class="tooth-outline tooth-fill" data-draw-path
+            d="M150 120
+               C150 95 175 80 200 80
+               C225 80 250 95 250 120
+               C255 140 252 158 244 168
+               C240 195 244 230 236 258
+               C232 272 220 278 214 266
+               C210 256 208 240 200 240
+               C192 240 190 256 186 266
+               C180 278 168 272 164 258
+               C156 230 160 195 156 168
+               C148 158 145 140 150 120 Z"/>
+
+          <circle class="scan-node" cx="200" cy="96" r="4"/>
+          <circle class="scan-node violet" cx="244" cy="168" r="3.5"/>
+          <circle class="scan-node" cx="156" cy="168" r="3.5"/>
+          <circle class="scan-node violet" cx="214" cy="266" r="3.5"/>
+          <circle class="scan-node" cx="186" cy="266" r="3.5"/>
+        </svg>
+        <div class="hero-readout mono">ESCANEO_3D · 0.02mm · EN_VIVO</div>
+      </div>
+    </div>
+    <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">El problema real</span>
+        <h2>El miedo al dentista casi nunca es al dolor. Es a no saber qué te van a hacer.</h2>
+        <p>La mayoría de pacientes que evitan la clínica no tuvieron una mala experiencia con el dolor: la tuvieron con un diagnóstico que nunca vieron, un presupuesto que cambió a mitad de tratamiento, o una explicación que sonó a idioma técnico.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SOLUCIÓN: zigzag -->
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Cómo lo resolvemos</span>
+        <h2>Tres decisiones de diseño clínico, no solo de marketing</h2>
+      </div>
+
+      <div class="zig">
+        <div class="zig-item reveal">
+          <div class="zig-copy">
+            <span class="index mono">01</span>
+            <h3>Escaneas, y ves lo mismo que ve tu dentista</h3>
+            <p>Nada de moldes de silicona ni radiografías planas. El escáner intraoral proyecta tu boca en 3D en la misma pantalla que estás mirando, en tiempo real.</p>
+          </div>
+          <div class="zig-visual">
+            <svg viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="2">
+              <rect x="20" y="15" width="60" height="70" rx="6"/>
+              <path d="M32 40 L45 52 L68 30" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="32" y1="65" x2="68" y2="65" stroke-dasharray="3 4"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="zig-item reveal">
+          <div class="zig-copy">
+            <span class="index mono">02</span>
+            <h3>El presupuesto se fija antes de tocar una fresa</h3>
+            <p>El plan de tratamiento sale directamente del escaneo: cada fase, cada pieza, cada coste, por escrito, antes de empezar. Si algo cambia en el camino, se habla antes de hacerlo, no después de facturarlo.</p>
+          </div>
+          <div class="zig-visual">
+            <svg viewBox="0 0 100 100" fill="none" stroke="var(--accent-2)" stroke-width="2">
+              <rect x="22" y="18" width="56" height="64" rx="5"/>
+              <line x1="32" y1="34" x2="68" y2="34"/>
+              <line x1="32" y1="46" x2="60" y2="46"/>
+              <line x1="32" y1="58" x2="64" y2="58"/>
+              <path d="M32 70 L42 70 L42 68" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="zig-item reveal">
+          <div class="zig-copy">
+            <span class="index mono">03</span>
+            <h3>El seguimiento no depende de tu memoria</h3>
+            <p>Cada control se compara contra el escaneo anterior en la misma pantalla, así que el progreso (o cualquier alerta temprana) es literal, no una promesa verbal.</p>
+          </div>
+          <div class="zig-visual">
+            <svg viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="2">
+              <circle cx="50" cy="50" r="30"/>
+              <path d="M50 32 L50 50 L64 58" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO: scroll lateral -->
+  <section class="process-wrap" id="proceso">
+    <div class="process-sticky">
+      <div class="wrap" style="width:100%">
+        <div class="section-head reveal" style="margin-bottom:44px">
+          <span class="eyebrow">De la duda al plan</span>
+          <h2>Cuatro pasos, una sola visita para el diagnóstico</h2>
+        </div>
+      </div>
+      <div class="process-track" id="processTrack">
+        <div class="process-card"><span class="num mono">01 / ESCANEO</span><h3>Captura en 3D</h3><p>Un escaneo intraoral de 3 minutos reemplaza los moldes tradicionales. Sin arcadas, sin espera de laboratorio.</p></div>
+        <div class="process-card"><span class="num mono">02 / LECTURA</span><h3>Diagnóstico compartido</h3><p>Vemos el modelo juntos, en la misma pantalla. Señalamos exactamente qué pieza, qué zona, por qué.</p></div>
+        <div class="process-card"><span class="num mono">03 / PLAN</span><h3>Ruta y presupuesto cerrado</h3><p>Sales con un documento con fases, tiempos y coste total. Sin letra pequeña ni fase "a valorar después".</p></div>
+        <div class="process-card"><span class="num mono">04 / TRATAMIENTO</span><h3>Ejecución guiada por el escaneo</h3><p>Cada procedimiento usa el mismo modelo digital como referencia, así que el resultado se planea, no se improvisa.</p></div>
+        <div class="process-card"><span class="num mono">05 / CONTROL</span><h3>Seguimiento comparado</h3><p>Cada revisión se superpone al escaneo anterior. El progreso queda documentado, no solo recordado.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="stats-row reveal-stagger">
+        <div class="stat-cell r-item"><span class="stat-num" data-count="0.02">0</span><span class="label">mm de margen de error del escáner</span></div>
+        <div class="stat-cell r-item"><span class="stat-num" data-count="97">0</span><span class="label">% de planes sin cambio de presupuesto</span></div>
+        <div class="stat-cell r-item"><span class="stat-num" data-count="3">0</span><span class="label">min promedio del escaneo completo</span></div>
+        <div class="stat-cell r-item"><span class="stat-num" data-count="4.9">0</span><span class="label">valoración promedio de pacientes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TESTIMONIOS -->
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Pacientes reales, clínica de concepto</span>
+        <h2>Lo que cambia cuando ves tu propio diagnóstico</h2>
+        <p>Lumen es una marca de portafolio: estos testimonios son ilustrativos, escritos para mostrar cómo hablaría un paciente real de esta experiencia, no reseñas verificadas.</p>
+      </div>
+      <div class="test-grid">
+        <div class="card test-card reveal"><div class="card-glow"></div><span class="quote-mark">"</span><p class="quote">Nunca había visto mi propia muela en una pantalla. Cuando me señalaron la grieta, dejé de dudar si necesitaba el tratamiento o no.</p><div class="who"><div class="avatar">M</div><div><strong>Marta R.</strong><span>Paciente de ortodoncia</span></div></div></div>
+        <div class="card test-card reveal"><div class="card-glow"></div><span class="quote-mark">"</span><p class="quote">Pedí el presupuesto por escrito antes de empezar. No cambió ni un euro en las tres fases del tratamiento.</p><div class="who"><div class="avatar">D</div><div><strong>David P.</strong><span>Implante dental</span></div></div></div>
+        <div class="card test-card reveal"><div class="card-glow"></div><span class="quote-mark">"</span><p class="quote">Le tenía pánico al dentista desde niña. Aquí la primera cita fue solo mirar la pantalla juntos, sin tocar nada. Eso me cambió la relación con venir.</p><div class="who"><div class="avatar">S</div><div><strong>Sara N.</strong><span>Revisión general</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-pad">
+    <div class="wrap" style="max-width:760px">
+      <div class="section-head reveal">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Antes de que preguntes</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-q">¿El escaneo 3D duele o es incómodo?<span class="plus">+</span></button>
+          <div class="faq-a"><p>No. Es una varita que se pasa por la boca sin contacto de presión, sin material que se endurezca dentro de tu boca. La mayoría de pacientes lo prefieren sobre el molde tradicional desde la primera vez.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q">¿Cuánto tarda en llegar el presupuesto cerrado?<span class="plus">+</span></button>
+          <div class="faq-a"><p>Sales de la misma cita de diagnóstico con el documento en mano. No hay una segunda visita solo para recibir el presupuesto.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q">¿Qué pasa si durante el tratamiento aparece algo nuevo?<span class="plus">+</span></button>
+          <div class="faq-a"><p>Se compara contra el escaneo original en pantalla, se explica qué cambió y por qué, y se ajusta el presupuesto contigo delante antes de continuar. Nunca después de la factura.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q">¿Atienden urgencias sin cita previa?<span class="plus">+</span></button>
+          <div class="faq-a"><p>Sí, reservamos huecos diarios para urgencias. Escríbenos desde la página de <a href="contacto.html" class="accent">contacto</a> y te confirmamos el primer hueco disponible.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="cta-band reveal-scale">
+        <h2>Tu próxima visita empieza con una pantalla, no con una suposición</h2>
+        <p>Reserva el diagnóstico por escaneo 3D y sal con un plan que puedas leer, entender y decidir con calma.</p>
+        <div class="hero-actions">
+          <a href="contacto.html" class="btn btn-primary">Reservar diagnóstico</a>
+          <a href="tratamientos.html" class="btn btn-ghost">Ver tratamientos</a>
+        </div>
+        <p class="guarantee">Primera valoración con escaneo incluido · Sin compromiso de tratamiento</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><span class="dot"></span>Lumen</a>
+        <p>Clínica dental de diagnóstico visual. Escaneo 3D, presupuesto cerrado, seguimiento comparado.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <a href="index.html">Inicio</a>
+        <a href="tratamientos.html">Tratamientos</a>
+        <a href="tecnologia.html">Tecnología</a>
+        <a href="equipo.html">Equipo</a>
+      </div>
+      <div class="footer-col">
+        <h4>Clínica</h4>
+        <span>Calle Gran Vía 42, Madrid</span>
+        <span>Lun–Vie · 9:00–20:00</span>
+        <a href="tel:+34910000000">+34 910 00 00 00</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="contacto.html#privacidad">Política de privacidad</a>
+        <a href="contacto.html">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-fictional">LUMEN es una marca de concepto creada como portafolio de diseño web. Nombre, clínica, equipo y testimonios son ficticios.</span>
+      <span>© 2026 Lumen</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+  // FAQ accordion
+  document.querySelectorAll(".faq-item").forEach(function (item) {
+    var q = item.querySelector(".faq-q");
+    var a = item.querySelector(".faq-a");
+    q.addEventListener("click", function () {
+      var isOpen = item.classList.contains("open");
+      document.querySelectorAll(".faq-item.open").forEach(function (o) { if (o !== item) { o.classList.remove("open"); o.querySelector(".faq-a").style.maxHeight = null; } });
+      item.classList.toggle("open", !isOpen);
+      a.style.maxHeight = !isOpen ? a.scrollHeight + "px" : null;
+    });
+  });
+
+  // proceso: scroll lateral atado al progreso vertical del wrapper
+  (function () {
+    var wrap = document.getElementById("proceso");
+    var track = document.getElementById("processTrack");
+    if (!wrap || !track) return;
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    function update() {
+      var rect = wrap.getBoundingClientRect();
+      var total = rect.height - window.innerHeight;
+      var progress = Math.min(1, Math.max(0, -rect.top / total));
+      var maxScroll = Math.max(0, track.scrollWidth - window.innerWidth + 64);
+      track.style.transform = reduceMotion.matches ? "none" : "translateX(-" + (progress * maxScroll) + "px)";
+    }
+    window.addEventListener("scroll", function () { requestAnimationFrame(update); }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
+</script>
+</body>
+</html>
