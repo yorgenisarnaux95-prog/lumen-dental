@@ -319,6 +319,42 @@ section { position: relative; }
   }
 }
 
+/* ---------- reveal de cortina para h2 de sección ----------
+   el titular entero sube desde detrás de una máscara al entrar en
+   scroll, sin depender de detectar líneas: main.js solo envuelve el
+   texto una vez, la clase .in ya viene del sistema de reveal. */
+.section-head h2 { overflow: hidden; }
+.section-head h2 .mask-inner {
+  display: block;
+  transform: translateY(112%);
+  transition: transform 1s var(--ease-out);
+}
+.reveal.in .section-head h2 .mask-inner,
+.reveal-scale.in .section-head h2 .mask-inner { transform: translateY(0); }
+
+/* ---------- subrayado animado bajo la palabra de énfasis ---------- */
+.accent-underline { position: relative; display: inline-block; }
+.accent-underline svg {
+  position: absolute;
+  left: 0; bottom: -0.08em;
+  width: 100%; height: 0.3em;
+  overflow: visible;
+}
+.accent-underline path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.8s var(--ease-out) 0.5s;
+}
+.choreo.in .accent-underline path { stroke-dashoffset: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .section-head h2 .mask-inner, .accent-underline path { transition: none !important; }
+}
+
 /* ---------- word choreography ---------- */
 .choreo { overflow: hidden; padding-bottom: 0.12em; overflow-wrap: break-word; }
 .choreo .word {

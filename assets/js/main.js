@@ -75,20 +75,56 @@
     revealEls.forEach(function (el) { el.classList.add("in"); });
   }
 
-  /* ---------- choreo: envuelve cada palabra en <span class="word"> ---------- */
+  /* ---------- choreo: envuelve cada palabra en <span class="word"> ----------
+     conserva el class list de cualquier span interno (p.ej. .accent) en
+     vez de aplanarlo, para no perder el énfasis de esa palabra. */
   document.querySelectorAll(".choreo").forEach(function (el) {
     if (el.dataset.split === "done") return;
-    var text = el.textContent;
+    var nodes = Array.prototype.slice.call(el.childNodes);
     el.textContent = "";
-    var words = text.split(" ");
-    words.forEach(function (word, i) {
-      var span = document.createElement("span");
-      span.className = "word";
-      span.textContent = word;
-      el.appendChild(span);
-      if (i < words.length - 1) el.appendChild(document.createTextNode(" "));
+    var wordIndex = 0;
+    nodes.forEach(function (node) {
+      var extraClass = node.nodeType === 1 ? node.className : "";
+      var text = node.textContent || "";
+      text.split(" ").forEach(function (word) {
+        if (!word) return;
+        if (wordIndex > 0) el.appendChild(document.createTextNode(" "));
+        var span = document.createElement("span");
+        span.className = extraClass ? "word " + extraClass : "word";
+        span.textContent = word;
+        el.appendChild(span);
+        wordIndex++;
+      });
     });
     el.dataset.split = "done";
+  });
+
+  /* ---------- subrayado dibujado a mano bajo la palabra de énfasis ---------- */
+  document.querySelectorAll(".choreo .word.accent").forEach(function (word) {
+    if (word.dataset.underlined === "done") return;
+    word.classList.add("accent-underline");
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 100 10");
+    svg.setAttribute("preserveAspectRatio", "none");
+    svg.setAttribute("aria-hidden", "true");
+    var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", "M2 6 Q 50 1 98 6");
+    path.setAttribute("pathLength", "1");
+    svg.appendChild(path);
+    word.appendChild(svg);
+    word.dataset.underlined = "done";
+  });
+
+  /* ---------- reveal de cortina: envuelve cada h2 de sección en
+     una máscara, el sistema de reveal existente hace el resto ---------- */
+  document.querySelectorAll(".section-head h2").forEach(function (h2) {
+    if (h2.dataset.maskSplit === "done") return;
+    var inner = document.createElement("span");
+    inner.className = "mask-inner";
+    inner.innerHTML = h2.innerHTML;
+    h2.innerHTML = "";
+    h2.appendChild(inner);
+    h2.dataset.maskSplit = "done";
   });
 
   /* ---------- iluminación de texto de lectura larga ----------
